@@ -69,7 +69,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="css">
   main {
     margin-bottom: 4.8rem;
   }
@@ -122,6 +122,12 @@
     <h2 class="caption">Generate styles</h2>
     <Checkbox bind:checked={uiSettings.addPrevToDescription}>
       <span slot="label">Show last style in description</span>
+    </Checkbox>
+
+    <Checkbox bind:checked={uiSettings.useLayerOpacity} show>
+      <span slot="label" 
+      title="Factor layer opacity into the style alpha channel.&#13;For an example, if your target layer opacity is 0.5 with white fill the result will be rgba(255 255 255 .5)">
+        Use layer opacity for colours</span>
     </Checkbox>
 
     <Checkbox bind:checked={uiSettings.updateUsingLocalStyles} show>

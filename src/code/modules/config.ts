@@ -1,10 +1,11 @@
-import { Styler } from './styler';
+import { Styler, Filler } from './styler';
 import { defaultSettings } from './default-settings.js';
 
 export const clientStorageKey = 'cachedSettings';
 
 export class Config {
   // general
+  useLayerOpacity: boolean;
   addPrevToDescription: boolean;
   framesPerSection: number;
   textsPerSection: number;
@@ -26,6 +27,7 @@ export class Config {
   constructor(options = defaultSettings) {
     const {
       // general
+      useLayerOpacity = defaultSettings.useLayerOpacity,
       addPrevToDescription = defaultSettings.addPrevToDescription,
       framesPerSection = defaultSettings.framesPerSection,
       textsPerSection = defaultSettings.textsPerSection,
@@ -47,6 +49,7 @@ export class Config {
       effecterSuffix = defaultSettings.effecterSuffix,
     } = options;
 
+    this.useLayerOpacity = useLayerOpacity;
     this.addPrevToDescription = addPrevToDescription;
     this.framesPerSection = framesPerSection;
     this.textsPerSection = textsPerSection;
@@ -78,7 +81,7 @@ export class Config {
       prefix: griderPrefix,
       suffix: griderSuffix,
     });
-    this.filler = new Styler({
+    this.filler = new Filler({
       name: 'filler',
       styleType: 'paint',
       styleProps: ['paints'],
@@ -86,6 +89,7 @@ export class Config {
       layerPropType: 'fill',
       prefix: fillerPrefix,
       suffix: fillerSuffix,
+      useLayerOpacity: useLayerOpacity
     });
     this.strokeer = new Styler({
       name: 'strokeer',
@@ -95,6 +99,7 @@ export class Config {
       layerPropType: 'stroke',
       prefix: strokeerPrefix,
       suffix: strokeerSuffix,
+      useLayerOpacity: useLayerOpacity
     });
     this.effecter = new Styler({
       name: 'effecter',

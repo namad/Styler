@@ -1,5 +1,5 @@
 {
-  "name": "Styler",
+  "name": "Styler Alt",
   "editorType": ["figma"],
   "id": "820660579767995949",
   "api": "1.0.0",
@@ -17,6 +17,10 @@
     {
       "name": "Generate Styles",
       "command": "generate-all-styles"
+    },
+    {
+      "name": "Generate Derived Styles",
+      "command": "generate-all-derived"
     },
     {
       "separator": true

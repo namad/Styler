@@ -71,7 +71,6 @@ export const showNofication = (
   notificationTimeout: number,
 ) => {
   const { empty, multiple, single = multiple } = messages;
-
   if (counter === 0) {
     figma.notify(empty, { timeout: notificationTimeout });
     figma.closePlugin();

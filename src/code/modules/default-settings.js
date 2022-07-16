@@ -1,4 +1,5 @@
 export const defaultSettings = {
+  useLayerOpacity: false,
   addPrevToDescription: true,
   framesPerSection: 6,
   textsPerSection: 8,

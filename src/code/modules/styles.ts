@@ -62,7 +62,6 @@ export const changeAllStyles = (config) => {
   layers.map(async (layer, layerIndex) => {
     let stylers = allStylers;
     const oldLayerName = layer.name;
-
     if (layer.type === 'TEXT') {
       await figma.loadFontAsync(layer.fontName as FontName);
 
@@ -81,8 +80,14 @@ export const changeAllStyles = (config) => {
       const styleIdMatch = styler.getStyleById(layer);
       const styleNameMatch = styler.getStyleByName(layer.name, partialMatch);
 
+
       if (CMD === 'generate-all-styles') {
-        styler.generateStyle(layer, { styleNameMatch, styleIdMatch, updateUsingLocalStyles, addPrevToDescription });
+        styler.generateMainStyle(layer, { styleNameMatch, styleIdMatch, updateUsingLocalStyles, addPrevToDescription });
+        showNotificationAtArrayEnd('generated', notificationOptions);
+      }
+
+      if (CMD === 'generate-all-derived') {
+        styler.generateDerivedStyle(layer, { styleNameMatch, styleIdMatch, updateUsingLocalStyles, addPrevToDescription });
         showNotificationAtArrayEnd('generated', notificationOptions);
       }
 

@@ -80,13 +80,12 @@ export const changeAllStyles = (config) => {
       const styleIdMatch = styler.getStyleById(layer);
       const styleNameMatch = styler.getStyleByName(layer.name, partialMatch);
 
-
       if (CMD === 'generate-all-styles') {
         styler.generateMainStyle(layer, { styleNameMatch, styleIdMatch, updateUsingLocalStyles, addPrevToDescription });
         showNotificationAtArrayEnd('generated', notificationOptions);
       }
 
-      if (CMD === 'generate-all-derived') {
+      else if (CMD === 'generate-all-derived') {
         styler.generateDerivedStyle(layer, { styleNameMatch, styleIdMatch, updateUsingLocalStyles, addPrevToDescription });
         showNotificationAtArrayEnd('generated', notificationOptions);
       }
@@ -108,6 +107,7 @@ export const changeAllStyles = (config) => {
         styler.removeStyle(layer, styleIdMatch);
         showNotificationAtArrayEnd('removed', notificationOptions);
       } else {
+
         figma.closePlugin('🤷‍♂️ This should not happen. Nothing was changed...');
       }
     });

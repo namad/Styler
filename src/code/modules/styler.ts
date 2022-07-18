@@ -70,9 +70,10 @@ export class Styler {
   };
 
   changeStyleDescription = (styleNameMatch, styleIdMatch) => {
+    debugger;
     const currentDescription = styleNameMatch.description || '';
 
-    const keyword = 'Previous style:';
+    const keyword = 'Previous style:'
     const pos = currentDescription.lastIndexOf(keyword);
     const newDescription = currentDescription.slice(0, pos) + `${keyword}\n${styleIdMatch?.name || ''}`;
 
@@ -138,6 +139,8 @@ export class Styler {
     });
 
     this.applyStyle(layer, styleNameMatch);
+
+    return styleNameMatch;
   };
 
   removeStyle = (layer, style) => {
@@ -176,18 +179,30 @@ export class Styler {
       return;
     }
 
+    let currentLayerOpacity = layer.opacity;
+    let style;
+
     // create
     // there is no style that matches layer name
     if (!styleNameMatch) {
-      this.createStyle(layer, addPrevToDescription);
+      style = this.createStyle(layer, false);
+      style.description = ``;
       counter.created++;
     }
     // there is a style on the layer and but it name does not match layer name
     // this is a style that matches layer name
     else if (styleIdMatch !== styleNameMatch) {
-      this.updateStyle(layer, styleNameMatch, addPrevToDescription, styleIdMatch);
+      style = this.updateStyle(layer, styleNameMatch, false, styleIdMatch);
       counter.updated++;
     }
+
+    style.description = `${styleIdMatch.name}`;
+    if(currentLayerOpacity < 1) {
+      style.description += `, ${Math.round(currentLayerOpacity * 100)}%`;
+    }
+    // restore original style reference and opacity
+    this.applyStyle(layer, styleIdMatch);
+    layer.opacity = currentLayerOpacity;
 
     counter.generated++;
   }
@@ -212,7 +227,6 @@ export class Styler {
     // create
     // layer does not have any styles applied and there no style that would match layer name
     if ((!styleIdMatch || styleIdMatch?.remote) && !styleNameMatch) {
-      console.log('create');
       this.createStyle(layer, addPrevToDescription);
       counter.created++;
     }
